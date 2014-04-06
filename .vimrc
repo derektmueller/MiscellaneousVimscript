@@ -1,7 +1,7 @@
 
 "https://github.com/parenparen/
 "
-"Copyright 2013 Derek Mueller
+"Copyright 2014 Derek Mueller
 "Released under the MIT license
 "http://opensource.org/licenses/MIT
 
@@ -11,8 +11,13 @@
 :   '[,'] s/^/\/\/
 :endfunction
 
+:function! UncommentAll(...)
+:   '[,'] s/^\/\///
+:endfunction
+
 
 :nnoremap <leader>oc :set opfunc=CommentAll<CR>g@
+:nnoremap <leader>ouc :set opfunc=UncommentAll<CR>g@
 
 
 "toggle true/false
