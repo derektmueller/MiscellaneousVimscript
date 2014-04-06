@@ -8,11 +8,25 @@
 
 " comment out lines between marks set by motion command
 :function! CommentAll(...)
-:   '[,'] s/^/\/\/
+:   let a:ft = &filetype
+:   if a:ft ==# 'vim'
+:       '[,'] s/^/"/
+:   elseif a:ft =~# 'python\|perl'
+:       '[,'] s/^/#/
+:   else
+:       '[,'] s/^/\/\/
+:   endif
 :endfunction
 
 :function! UncommentAll(...)
-:   '[,'] s/^\/\///
+:   let a:ft = &filetype
+:   if a:ft ==# 'vim'
+:       '[,'] s/"//
+:   elseif a:ft =~# 'python\|perl'
+:       '[,'] s/#//
+:   else
+:       '[,'] s/^\/\//
+:   endif
 :endfunction
 
 
