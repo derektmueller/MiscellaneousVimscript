@@ -1,4 +1,10 @@
 
+"https://github.com/parenparen/
+"
+"Copyright 2013 Derek Mueller
+"Released under the MIT license
+"http://opensource.org/licenses/MIT
+
 
 " comment out lines between marks set by motion command
 :function! CommentAll(...)
