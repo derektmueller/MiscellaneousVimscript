@@ -27,6 +27,19 @@
 :
 :endfunction
 
+"like CommentFn except comment start and end are removed
+:function! UncommentFn ()
+:   execute "normal! m'" 
+:   let l:ln1 = line ('.')
+:   let l:ln2 = search ('function')
+:   if (l:ln1 ==# l:ln2) 
+:       execute "normal! 0xxf{%$xx"
+:   else
+:       execute "normal! `'?function\r0xxf{%$xx" 
+:   endif
+:
+:endfunction
+
 " comment out lines between marks set by motion command
 :function! CommentAll (...)
 :   let l:ft = &filetype
@@ -62,5 +75,6 @@
 :augroup filetypeJS
 :   autocmd!
 :   autocmd FileType javascript :nnoremap <buffer> <localleader>cf :call CommentFn ()<cr>
+:   autocmd FileType javascript :nnoremap <buffer> <localleader>uf :call UncommentFn ()<cr>
 
 :augroup END
