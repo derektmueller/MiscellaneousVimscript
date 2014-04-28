@@ -6,6 +6,28 @@
 "http://opensource.org/licenses/MIT
 
 
+:function! CopyFnToClipboard ()
+
+"save original location
+:   execute "normal! m'" 
+
+:   let l:ln1 = line ('.')
+:   let l:ln2 = search ('function')
+
+"detect whether cursor is inside a function or on the first line of a
+"function definition
+:   if (l:ln1 ==# l:ln2) 
+        "set mark on current line, move to end of 
+        "function, end copy
+:       execute "normal! maf{%\"+y'a"
+:   else
+        "move to beginning of function, set mark, move to end of 
+        "function, end copy
+:       execute "normal! `'?function\rmaf{%\"+y'a" 
+:   endif
+:
+:endfunction
+
 :function! CommentFn ()
 
 "save original location
@@ -75,6 +97,7 @@
 :augroup filetypeJS
 :   autocmd!
 :   autocmd FileType javascript :nnoremap <buffer> <localleader>cf :call CommentFn ()<cr>
+:   autocmd FileType javascript :nnoremap <buffer> <localleader>Cf :call CopyFnToClipboard ()<cr>
 :   autocmd FileType javascript :nnoremap <buffer> <localleader>uf :call UncommentFn ()<cr>
 
 :augroup END
