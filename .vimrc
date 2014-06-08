@@ -39,7 +39,7 @@
 "detect whether cursor is inside a function or on the first line of a
 "function definition
 :   if (l:ln1 ==# l:ln2) 
-:       "start comment on current line and move to end of function
+       "start comment on current line and move to end of function
 :       execute "normal! I/*\ef{%A*/\e"
 :   else
         "move to beginning of function, start comment, move to end of 
@@ -69,6 +69,12 @@
 :       '[,'] s/^/"/
 :   elseif l:ft =~# 'python\|perl'
 :       '[,'] s/^/#/
+:   elseif l:ft =~# 'html\|xml'
+"       save original marks
+:       execute "normal! '[ma" 
+:       execute "normal! ']mb"
+:       'a s/^/<!--/
+:       'b s/$/-->/
 :   else
 :       '[,'] s/^/\/\/
 :   endif
@@ -80,6 +86,12 @@
 :       '[,'] s/"//
 :   elseif l:ft =~# 'python\|perl'
 :       '[,'] s/#//
+:   elseif l:ft =~# 'html\|xml'
+"       save original marks
+:       execute "normal! '[ma" 
+:       execute "normal! ']mb"
+:       'a s/^<!--//
+:       'b s/-->$//
 :   else
 :       '[,'] s/^\/\//
 :   endif
@@ -93,6 +105,7 @@
 "toggle true/false
 :nnoremap <leader>t :execute "normal! viwy" <cr> :if getreg("\"") ==# 'true' <cr> execute "normal! viwcfalse\e" <cr> elseif getreg("\"") ==# 'false' <cr> execute "normal! viwctrue\e" <cr> endif <cr> :execute "normal! viwb\e" <cr>
 
+:nnoremap <leader>Ca mbggmaG"+y'a'b
 
 :augroup filetypeJS
 :   autocmd!
